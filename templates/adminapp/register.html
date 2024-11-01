@@ -1,0 +1,61 @@
+{% extends 'Navbar/ProjectNavbar.html' %}
+<html>
+<head>
+    <title>Registration Page</title>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .registration-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px; /* Slightly increasing padding to expand the input size */
+            font-size: 16px; /* Adjust font size to match the larger text fields */
+        }
+    </style>
+</head>
+<body>
+{% block body %}
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="registration-container">
+        <h2 align="center">Register</h2>
+        {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} mt-3">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+
+        <form method="POST" action="{% url 'register' %}">
+            {% csrf_token %}
+            <input type="text" class="form-control mb-3" name="first_name" placeholder="First Name" required>
+            <input type="text" class="form-control mb-3" name="last_name" placeholder="Last Name" required>
+            <input type="text" class="form-control mb-3" name="username" placeholder="Username" required>
+            <input type="email" class="form-control mb-3" name="email" placeholder="Email" required>
+            <input type="password" class="form-control mb-3" name="password" placeholder="Password" required>
+            <input type="password" class="form-control mb-3" name="confirm-password" placeholder="Confirm Password" required>
+            <p>Already have an Account ?<a href="{% url 'user_login' %}">Click Here</a></p>
+            <input type="submit" class="btn btn-primary w-100" value="Register">
+        </form>
+    </div>
+</div>
+{% endblock %}
+</body>
+</html>

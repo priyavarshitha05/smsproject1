@@ -1,0 +1,45 @@
+{% extends 'Navbar/ProjectNavbar.html' %}
+<html>
+<head>
+    <title>Login Page</title>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+{% block body %}
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="login-container">
+        <h2>Login</h2>
+
+        {% if error_message %}
+            <p class="error-message" style="color: red;">{{ error_message }}</p>
+        {% endif %}
+
+        <form method="POST" action="{% url 'user_login' %}">
+            {% csrf_token %}
+            <input type="text" class="form-control mb-3" name="username" placeholder="Username" required>
+            <input type="password" class="form-control mb-3" name="password" placeholder="Password" required>
+            <p>Don't have an account yet ?<a href="{% url 'register' %}">Register here</a></p>
+            <input type="submit" class="btn btn-primary w-100" value="Login">
+        </form>
+    </div>
+</div>
+{% endblock %}
+</body>
+</html>
